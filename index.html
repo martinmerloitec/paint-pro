@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krita Web Studio - Entorno Profesional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR (MENÚ) -->
+    <header class="top-bar">
+        <div class="logo-area">
+            <span class="krita-icon">🎨</span>
+            <h1>Krita<span>StudioJS</span></h1>
+        </div>
+        <div class="top-menu">
+            <button class="menu-btn" id="newCanvasBtn">Nuevo</button>
+            <button class="menu-btn" id="saveBtn">Guardar Imagen</button>
+        </div>
+        <div class="project-info">
+            <span id="canvasSizeInfo">800 x 600 px</span> | <span id="coords">X: 0, Y: 0</span>
+        </div>
+    </header>
+
+    <div class="app-container">
+        
+        <!-- BARRA DE HERRAMIENTAS IZQUIERDA (TOOLBOX) -->
+        <aside class="toolbox">
+            <button class="tool-btn active" data-tool="brush" title="Pincel Libre">🖌️</button>
+            <button class="tool-btn" data-tool="eraser" title="Borrador">🧹</button>
+            <button class="tool-btn" data-tool="fill" title="Relleno de Cubo">🪣</button>
+            <button class="tool-btn" data-tool="eyedropper" title="Cuentagotas">🧪</button>
+            <div class="tool-separator"></div>
+            <button class="tool-btn" data-tool="line" title="Línea Recta">📏</button>
+            <button class="tool-btn" data-tool="rect" title="Rectángulo">◻️</button>
+            <button class="tool-btn" data-tool="circle" title="Círculo">⚪</button>
+        </aside>
+
+        <!-- ÁREA CENTRAL (LIENZO) -->
+        <main class="canvas-workspace">
+            <div class="canvas-frame" id="canvasContainer">
+                <!-- Múltiples capas simuladas mediante canvas apilados -->
+                <canvas id="bgCanvas" width="800" height="600"></canvas>
+                <canvas id="paintCanvas" width="800" height="600"></canvas>
+            </div>
+        </main>
+
+        <!-- PANELES DERECHOS (DOCKERS ESTILO KRITA) -->
+        <aside class="dockers-container">
+            
+            <!-- Selector de Color / Rueda Cromática -->
+            <div class="docker-panel">
+                <h3>Paleta y Color</h3>
+                <div class="color-picker-box">
+                    <input type="color" id="colorPicker" value="#3daee9">
+                    <div class="color-preview" id="colorPreview" style="background: #3daee9;"></div>
+                </div>
+                <div class="palette-grid">
+                    <div class="swatch" style="background:#ffffff;" data-color="#ffffff"></div>
+                    <div class="swatch" style="background:#b7b7b7;" data-color="#b7b7b7"></div>
+                    <div class="swatch" style="background:#232629;" data-color="#232629"></div>
+                    <div class="swatch" style="background:#ed1515;" data-color="#ed1515"></div>
+                    <div class="swatch" style="background:#f67400;" data-color="#f67400"></div>
+                    <div class="swatch" style="background:#fdbc4b;" data-color="#fdbc4b"></div>
+                    <div class="swatch" style="background:#2ecc71;" data-color="#2ecc71"></div>
+                    <div class="swatch" style="background:#1abc9c;" data-color="#1abc9c"></div>
+                    <div class="swatch" style="background:#3daee9;" data-color="#3daee9"></div>
+                    <div class="swatch" style="background:#1d99f3;" data-color="#1d99f3"></div>
+                    <div class="swatch" style="background:#9b59b6;" data-color="#9b59b6"></div>
+                    <div class="swatch" style="background:#e91e63;" data-color="#e91e63"></div>
+                </div>
+            </div>
+
+            <!-- Estilos de Pinceles Profesionales -->
+            <div class="docker-panel">
+                <h3>Motores de Pincel</h3>
+                <div class="brush-engines">
+                    <button class="engine-btn active" data-engine="hard">Lápiz Duro</button>
+                    <button class="engine-btn" data-engine="soft">Pincel Suave</button>
+                    <button class="engine-btn" data-engine="ink">Tinta Caligráfica</button>
+                    <button class="engine-btn" data-engine="airbrush">Aerógrafo (Spray)</button>
+                    <button class="engine-btn" data-engine="marker">Marcador Plano</button>
+                    <button class="engine-btn" data-engine="texture">Esponja Texturizada</button>
+                    <button class="engine-btn" data-engine="neon">Neón Resplandor</button>
+                </div>
+                
+                <div class="control-row" style="margin-top: 12px;">
+                    <label>Tamaño: <span id="sizeVal">10px</span></label>
+                    <input type="range" id="brushSize" min="1" max="100" value="10">
+                </div>
+                <div class="control-row">
+                    <label>Opacidad: <span id="opacityVal">100%</span></label>
+                    <input type="range" id="brushOpacity" min="1" max="100" value="100">
+                </div>
+            </div>
+
+            <!-- Gestor de Capas -->
+            <div class="docker-panel flex-grow">
+                <h3>Capas (Layers)</h3>
+                <div class="layers-list">
+                    <div class="layer-item active">
+                        <span>👁️ Capa Principal (Dibujo)</span>
+                    </div>
+                    <div class="layer-item">
+                        <span>👁️ Capa de Fondo (Base)</span>
+                    </div>
+                </div>
+                <div class="history-actions">
+                    <button class="action-btn" id="undoBtn">↩️ Deshacer</button>
+                    <button class="action-btn" id="redoBtn">↪️ Rehacer</button>
+                    <button class="action-btn danger" id="clearBtn">🗑️ Limpiar</button>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

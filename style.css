@@ -1,0 +1,355 @@
+:root {
+    --krita-bg: #232629;
+    --krita-panel: #31363b;
+    --krita-border: #181a1c;
+    --krita-hover: #4d5358;
+    --krita-accent: #3daee9;
+    --krita-accent-glow: rgba(61, 174, 233, 0.3);
+    --text-light: #eff0f1;
+    --text-dimmed: #bdc3c7;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--krita-bg);
+    color: var(--text-light);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Barra Superior */
+.top-bar {
+    height: 45px;
+    background-color: var(--krita-panel);
+    border-bottom: 2px solid var(--krita-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-area h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.logo-area h1 span {
+    color: var(--krita-accent);
+}
+
+.top-menu {
+    display: flex;
+    gap: 8px;
+}
+
+.menu-btn {
+    background: var(--krita-bg);
+    border: 1px solid var(--krita-border);
+    color: var(--text-light);
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.menu-btn:hover {
+    background: var(--krita-hover);
+    border-color: var(--krita-accent);
+}
+
+.project-info {
+    font-size: 0.8rem;
+    color: var(--text-dimmed);
+}
+
+/* Contenedor Principal */
+.app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Toolbox Izquierda */
+.toolbox {
+    width: 50px;
+    background-color: var(--krita-panel);
+    border-right: 2px solid var(--krita-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    gap: 4px;
+}
+
+.tool-btn {
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s;
+}
+
+.tool-btn:hover {
+    background: var(--krita-hover);
+}
+
+.tool-btn.active {
+    background: var(--krita-accent);
+    color: #000;
+    border-color: #2980b9;
+}
+
+.tool-separator {
+    width: 30px;
+    height: 1px;
+    background: var(--krita-border);
+    margin: 4px 0;
+}
+
+/* Workspace Central */
+.canvas-workspace {
+    flex: 1;
+    background-color: #1b1d1f;
+    background-image: 
+        linear-gradient(45deg, #202225 25%, transparent 25%), 
+        linear-gradient(-45deg, #202225 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #202225 75%), 
+        linear-gradient(-45deg, transparent 75%, #202225 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    position: relative;
+}
+
+.canvas-frame {
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    border: 1px solid #111;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+}
+
+#bgCanvas {
+    z-index: 1;
+}
+
+#paintCanvas {
+    z-index: 2;
+}
+
+/* Dockers Derechos (Paneles Estilo Krita) */
+.dockers-container {
+    width: 280px;
+    background-color: var(--krita-panel);
+    border-left: 2px solid var(--krita-border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    overflow-y: auto;
+}
+
+.docker-panel {
+    background: var(--krita-bg);
+    border: 1px solid var(--krita-border);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.docker-panel h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-dimmed);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--krita-border);
+    padding-bottom: 4px;
+}
+
+.flex-grow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Color y Paleta */
+.color-picker-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+input[type="color"] {
+    appearance: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    background: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 1px solid var(--krita-border); border-radius: 4px; }
+
+.color-preview {
+    flex: 1;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid var(--krita-border);
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+}
+
+.swatch {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.3);
+    transition: transform 0.1s;
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+/* Motores de Pincel */
+.brush-engines {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.engine-btn {
+    background: var(--krita-panel);
+    border: 1px solid var(--krita-border);
+    color: var(--text-light);
+    padding: 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.engine-btn:hover {
+    background: var(--krita-hover);
+}
+
+.engine-btn.active {
+    background: var(--krita-accent);
+    color: #000;
+    font-weight: 600;
+    border-color: #2980b9;
+}
+
+/* Sliders */
+.control-row {
+    margin-top: 8px;
+}
+
+.control-row label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-dimmed);
+    margin-bottom: 3px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--krita-accent);
+    cursor: pointer;
+}
+
+/* Capas e Historia */
+.layers-list {
+    background: var(--krita-panel);
+    border: 1px solid var(--krita-border);
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 8px;
+    flex: 1;
+}
+
+.layer-item {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    background: var(--krita-bg);
+    border-radius: 3px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.layer-item.active {
+    border-left: 3px solid var(--krita-accent);
+    background: var(--krita-hover);
+}
+
+.history-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.action-btn {
+    background: var(--krita-panel);
+    border: 1px solid var(--krita-border);
+    color: var(--text-light);
+    padding: 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.action-btn:hover {
+    background: var(--krita-hover);
+}
+
+.action-btn.danger {
+    grid-column: span 2;
+    background: rgba(237, 21, 21, 0.2);
+    border-color: #ed1515;
+    color: #ff8b8b;
+}
+
+.action-btn.danger:hover {
+    background: #ed1515;
+    color: #fff;
+}
